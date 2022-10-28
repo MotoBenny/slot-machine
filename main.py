@@ -16,6 +16,26 @@ symbol_count = {
     "@": 8
 }
 
+symbol_value = {
+    "$": 6,
+    "&": 4,
+    "#": 3,
+    "@": 2
+}
+
+def check_winnings(columns, lines, bet, values):
+    winnings = 0
+    for line in range(lines):
+        symbol = columns[0][line]
+        for column in columns:
+            symbol_to_check = column[line]
+            if symbol != symbol_to_check:
+                break
+        else:
+            winnings += values[symbol] * bet
+
+    return winnings
+
 def get_slot_spin(rows, cols, symbols):
     all_symbols = []
     # These for loops populate the list. Can we think of a better way to do this without a nested for loop?
@@ -42,9 +62,11 @@ def print_slot_machine(columns):
     for row in range(len(columns[0])):
         for i, column in enumerate(columns):
             if i != len(columns) -1:
-                print(column[row], "|")
+                print(column[row], end =" | ")
             else:
-                print(column[row])
+                print(column[row], end ="")
+
+        print() # empty print just brings us to the next line
 
 
 # I feel like there is a better way to confirm the input here. 
